@@ -12,13 +12,34 @@ export const getProductById = async (productId: string) => {
   return productData.json();
 };
 
-export const addProduct = async () => {
-  await fetch(`${API_BASE}/products`, {
+export const addProduct = async (body: {
+  title: string;
+  description: string;
+  price: number;
+  count: number;
+}) => {
+  const result = await fetch(`${API_BASE}/products`, {
     method: "POST",
-    body: JSON.stringify({
-      title: "ALPINE TRAIL XR",
-      description: "Wheel Size: 29, Full Suspension | Aluminum",
-      price: 3999,
-    }),
+    body: JSON.stringify(body),
   });
+
+  return result.json();
+};
+
+export const updateProduct = async (
+  productId: string,
+  body: {
+    title?: string;
+    description?: string;
+    price?: number;
+    count?: number;
+  }
+) => {
+  console.log(body);
+  const result = await fetch(`${API_BASE}/products/${productId}`, {
+    method: "PATCH",
+    body: JSON.stringify(body),
+  });
+
+  return result.json();
 };

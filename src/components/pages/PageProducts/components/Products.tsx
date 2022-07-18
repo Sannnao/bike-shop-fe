@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Product } from "models/Product";
 import { formatAsPrice } from "utils/utils";
 import AddProductToCart from "components/AddProductToCart/AddProductToCart";
-import { getProducts, getProductById, addProduct } from "api";
+import { getProducts, getProductById } from "api";
 // import axios from 'axios';
 // import API_PATHS from "constants/apiPaths";
 
@@ -41,11 +41,6 @@ export default function Products() {
     const handleGetProducts = async () => {
       const products = await getProducts();
       setProducts(products);
-
-      const product = await getProductById(
-        "1b0eab19-ba47-4a33-a2c7-73cc11bcaa0b"
-      );
-      console.log(product);
     };
 
     handleGetProducts();
@@ -53,7 +48,6 @@ export default function Products() {
 
   return (
     <Grid container spacing={4}>
-      <button onClick={addProduct}>add product</button>
       {products.map((product: Product, index: number) => (
         <Grid item key={product.id} xs={12} sm={6} md={4}>
           <Card className={classes.card}>
